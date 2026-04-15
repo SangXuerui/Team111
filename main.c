@@ -231,24 +231,24 @@ void init_type_chart() {
 
 const char* get_type_name(PokemonType type) {
     switch (type) {
-        case TYPE_NORMAL: return "一般";
+        case TYPE_NORMAL: return "普通";
         case TYPE_FIRE: return "火";
         case TYPE_WATER: return "水";
         case TYPE_GRASS: return "草";
         case TYPE_ELECTRIC: return "电";
         case TYPE_ICE: return "冰";
-        case TYPE_FIGHTING: return "格斗";
+        case TYPE_FIGHTING: return "武";
         case TYPE_POISON: return "毒";
-        case TYPE_GROUND: return "地面";
-        case TYPE_FLYING: return "飞行";
-        case TYPE_PSYCHIC: return "超能力";
+        case TYPE_GROUND: return "地";
+        case TYPE_FLYING: return "翼";
+        case TYPE_PSYCHIC: return "超能";
         case TYPE_BUG: return "虫";
-        case TYPE_ROCK: return "岩石";
-        case TYPE_GHOST: return "幽灵";
+        case TYPE_ROCK: return "岩";
+        case TYPE_GHOST: return "幽";
         case TYPE_DRAGON: return "龙";
         case TYPE_DARK: return "恶";
         case TYPE_STEEL: return "钢";
-        case TYPE_FAIRY: return "妖精";
+        case TYPE_FAIRY: return "妖";
         default: return "未知";
     }
 }
