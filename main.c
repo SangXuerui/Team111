@@ -1,8 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <time.h>
-#include <windows.h>
+
 
 #define MAX_SKILLS 4
 #define NAME_LENGTH 32
