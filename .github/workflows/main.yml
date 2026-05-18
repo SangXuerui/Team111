@@ -1,19 +1,51 @@
-name: Team111 项目单元测试CI
+name: Team111 CI/CD
+
 on:
   push:
-    branches: [ main ]
+    branches: [ "main" ]
   pull_request:
-    branches: [ main ]
+    branches: [ "main" ]
 
 jobs:
+  # 第一个任务：运行单元测试
   test:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-      - name: Install GCC compile environment
+
+      - name: Install GCC environment
         run: sudo apt-get update && sudo apt-get install gcc -y
-      - name: Compile unit test code
+
+      - name: Compile unit tests
         run: cd test && gcc all_test.c -o test
-      - name: Run all unit test cases
+
+      - name: Run unit tests
         run: cd test && ./test
+
+  # 第二个任务：构建并推送 Docker 镜像
+  # 只有当 'test' 任务成功后，这个任务才会运行
+  build-and-push:
+    needs: test
+    runs-on: ubuntu-latest
+    # 只有在 main 分支推送时才推送镜像（拉取请求不推送）
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Compile main program (Makefile)
+        run: make
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: guoxuebo/team111:latest
